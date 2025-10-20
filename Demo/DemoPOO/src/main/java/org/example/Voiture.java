@@ -6,17 +6,29 @@ public class Voiture {
     private String couleur;
     private double reservoir;
     private long autonomie;
-    private boolean demaree;
 
-    public Voiture (){}
-    public Voiture (String model, String couleur,double reservoir,long autonomie){
+    private boolean demaree=false;
+
+    private static int nbrVoiture;
+
+    public Voiture() {
+        nbrVoiture++;
+    }
+
+    public Voiture(String model, String couleur) {
+        this();
         this.model = model;
         this.couleur = couleur;
+
+    }
+
+    public Voiture(String model, String couleur, double reservoir, long autonomie) {
+        this(couleur,model);
         this.reservoir = reservoir;
         this.autonomie = autonomie;
     }
 
-   public String getModel (){
+    public String getModel (){
         return this.model;
    }
 
@@ -72,5 +84,20 @@ public class Voiture {
             System.out.println("la voiture est deja demarée");
         }
 
+    }
+
+    public static void getNbrVoiture (){
+        System.out.println("le nombre total de voiture est de : "+nbrVoiture);
+    }
+
+    @Override
+    public String toString() {
+        return "Voiture{" +
+                "model='" + model + '\'' +
+                ", couleur='" + couleur + '\'' +
+                ", reservoir=" + reservoir +
+                ", autonomie=" + autonomie +
+                ", demaree=" + demaree +
+                '}';
     }
 }
