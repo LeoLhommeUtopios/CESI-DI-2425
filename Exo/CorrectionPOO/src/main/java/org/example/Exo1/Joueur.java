@@ -1,6 +1,4 @@
-package org.example;
-
-import javax.lang.model.element.NestingKind;
+package org.example.Exo1;
 
 public class Joueur {
 

@@ -1,9 +1,5 @@
-package org.example;
+package org.example.demo1;
 
-
-import org.example.demo1.Calculatrice;
-import org.example.demo1.Concessionnaire;
-import org.example.demo1.Voiture;
 
 public class Main {
     public static void main(String[] args) {
