@@ -1,4 +1,4 @@
-package org.example;
+package org.example.demo1;
 
 public class Concessionnaire {
     private Voiture[] voitures;
