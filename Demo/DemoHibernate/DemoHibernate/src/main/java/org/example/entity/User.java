@@ -1,15 +1,12 @@
-package org.example;
+package org.example.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.IdentityHashMap;
+import java.util.List;
 
 @Entity
 @Data
@@ -22,4 +19,14 @@ public class User {
     private long id;
     private String name;
     private int age;
+
+//    @OneToOne
+//    @JoinColumn(name = "id_account")
+//    private Account account;
+
+    @Embedded
+    private Account account;
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    private List<Orders> orders;
 }
