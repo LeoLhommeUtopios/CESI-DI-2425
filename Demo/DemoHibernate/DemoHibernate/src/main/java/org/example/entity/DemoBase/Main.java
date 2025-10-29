@@ -1,11 +1,8 @@
-package org.example;
+package org.example.entity.DemoBase;
 
-import org.example.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import java.time.LocalDate;
 
 
 public class Main {
