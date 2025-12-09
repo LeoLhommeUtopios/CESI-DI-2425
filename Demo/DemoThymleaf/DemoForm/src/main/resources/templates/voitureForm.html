@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire d'ajout de Voiture</title>
+</head>
+
+<body>
+
+<form th:action="@{/add}" method="post" th:object="${voiture}">
+
+    <div>
+        <label for="model">Model de la voiture</label>
+        <input type="text" id="model" th:field="*{model}" required>
+    </div>
+
+    <div>
+        <label for="nbPorte">nombre de porte</label>
+        <input type="text" id="nbPorte" th:field="*{nbPorte}" required>
+    </div>
+
+    <div>
+        <label for="couleur">couleur de la voiture</label>
+        <input type="text" id="couleur" th:field="*{couleur}" required>
+    </div>
+
+    <button>Ajouter</button>
+</form>
+</body>
+
+</html>

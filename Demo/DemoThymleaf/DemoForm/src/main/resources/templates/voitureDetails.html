@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Voiture</title>
+</head>
+
+<body>
+<span th:replace="~{home :: navBar}"></span>
+<h1>detail de la voiture</h1>
+<p>id : <span th:text="${voiture.getId()}"></span> </p>
+<p>model : <span th:text="${voiture.getModel()}"></span> </p>
+<p>nombre de portes : <span th:text="${voiture.getNbPorte()}"></span> </p>
+<p>couleur : <span th:text="${voiture.getCouleur()}"></span> </p>
+</body>
+
+</html>

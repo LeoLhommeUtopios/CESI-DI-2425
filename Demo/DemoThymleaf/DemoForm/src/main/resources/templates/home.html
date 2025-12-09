@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil</title>
+</head>
+
+<body>
+    <H1>Page d'accueil</H1>
+    <th:block th:fragment="navBar">
+        <nav>
+            <a th:href="@{/}">Accueil</a>
+            <a th:href="@{/list}">liste des voiture</a>
+        </nav>
+    </th:block>
+</body>
+</html>
