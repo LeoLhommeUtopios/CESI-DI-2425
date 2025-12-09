@@ -9,6 +9,7 @@ gérer des étudiants, c'est-à-dire :
 Il nous faudra donc plusieurs pages web (au minimum) :
 - Accueil
 - Liste des étudiants
+- Création d'etudiant
 - Détails d'un étudiant
 - Résultat de recherche d'un étudiant
 
@@ -19,6 +20,7 @@ On pourra, à partir de la page Accueil, se rendre sur :
 Sur la page Liste des étudiants :
 - à côté de chaque étudiant (juste le nom et prénom affichés), un lien ou bouton "voir détails" pour accéder à la page voir détails de l'étudiant
 - un lien ou bouton pour revenir à l'accueil
+- un lien vers le formulaire de creation des etudiants
 
 La page Détail étudiant :
 - affiche toutes les informations d'un étudiant
