@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil</title>
+</head>
+
+<body>
+    <span th:replace="~{home :: navBar}"></span>
+
+    <th:block th:fragment="displayStudentResult">
+        <p th:if="${students.isEmpty()}"> Aucun etudiant !</p>
+        <table th:unless="${students.isEmpty()}">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="s : ${students}">
+                <td th:text="${s.getId()}"></td>
+                <td th:text="${s.getLastname()}"></td>
+                <td th:text="${s.getFirstname()}"></td>
+                <td>
+                    <a th:href="@{/student/get_student/{id}(id=${s.getId()})}">Detail</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </th:block>
+
+    <a th:href="@{/student/add}">Ajouter un etudiant</a>
+
+</body>
+</html>

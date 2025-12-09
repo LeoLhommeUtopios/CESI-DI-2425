@@ -1,11 +1,8 @@
-package org.example.demoform.repository;
+package org.example.demoform.Voiture.repository;
 
-import org.example.demoform.entity.Voiture;
+import org.example.demoform.Voiture.entity.Voiture;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface VoitureRepository extends JpaRepository<Voiture,Integer> {

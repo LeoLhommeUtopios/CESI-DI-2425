@@ -1,8 +1,8 @@
-package org.example.demoform.controller;
+package org.example.demoform.Voiture.controller;
 
-import jakarta.servlet.ServletRequest;
-import org.example.demoform.entity.Voiture;
-import org.example.demoform.service.VoitureService;
+import jakarta.validation.Valid;
+import org.example.demoform.Voiture.entity.Voiture;
+import org.example.demoform.Voiture.service.VoitureService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,8 +47,9 @@ public class VoitureController {
     }
 
     @PostMapping("/add")
-    public String addVoiture (Voiture voiture){
+    public String addVoiture (@Valid Voiture voiture){
         voitureService.create(voiture);
         return "redirect:/list";
     }
+
 }

@@ -1,11 +1,7 @@
-package org.example.demoform.service;
+package org.example.demoform.Voiture.service;
 
-import lombok.RequiredArgsConstructor;
-import org.example.demoform.entity.Voiture;
-import org.example.demoform.repository.VoitureRepository;
-import org.hibernate.type.ListType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.core.support.RepositoryMethodInvocationListener;
+import org.example.demoform.Voiture.entity.Voiture;
+import org.example.demoform.Voiture.repository.VoitureRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
