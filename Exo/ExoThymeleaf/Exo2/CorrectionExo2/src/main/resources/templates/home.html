@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+
+<body>
+
+<th:block th:fragment="navBar">
+    <nav>
+        <a th:href="@{/}">Accueil</a>
+        <a th:href="@{/recipe}">Recettes</a>
+        <a th:href="@{/category}">Categories</a>
+    </nav>
+</th:block>
+
+</body>
+
+</html>

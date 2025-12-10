@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+
+<body>
+<span th:replace="~{home :: navBar}"></span>
+
+<form  th:action="@{/category}" method="post" th:object="${category}">
+    <input type="hidden" th:field="*{id}">
+
+    <label for="name">Nom</label>
+    <input id="name" type="text" th:field="*{name}">
+
+    <label for="description">Description</label>
+    <input id="description" type="text" th:field="*{description}">
+
+
+    <button>Ajouter</button>
+</form>
+
+</body>
+</html>

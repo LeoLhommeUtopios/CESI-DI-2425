@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+
+<body>
+<span th:replace="~{home :: navBar}"></span>
+
+<form th:if="${recipe.getId()} == null" th:action="@{/recipe/add}" method="post" th:object="${recipe}">
+    <input type="hidden" th:field="*{id}">
+
+    <label for="name">Nom</label>
+    <input id="name" type="text" th:field="*{name}">
+
+    <label for="ingredient">Ingredient</label>
+    <input id="ingredient" type="text" th:field="*{ingredients}">
+
+    <label for="instruction">Instructions</label>
+    <input id="instruction" type="text" th:field="*{instructions}">
+
+    <label for="category">Categorie</label>
+    <select id="category" th:field="*{category}">
+        <option th:each="c : ${category}" th:value="${c.getId()}" th:text="${c.getName()}"></option>
+    </select>
+
+    <button>Ajouter</button>
+</form>
+
+<form th:unless="${recipe.getId()} == null" th:action="@{/recipe/update}" method="post" th:object="${recipe}">
+    <input type="hidden" th:field="*{id}">
+
+    <label for="nameupdate">Nom</label>
+    <input id="nameupdate" type="text" th:field="*{name}">
+
+    <label for="ingredientupdate">Ingredient</label>
+    <input id="ingredientupdate" type="text" th:field="*{ingredients}">
+
+    <label for="instructionUpdate">Instructions</label>
+    <input id="instructionUpdate" type="text" th:field="*{instructions}">
+
+    <label for="categoryUpdate">Categorie</label>
+    <select id="categoryUpdate" th:field="*{category}">
+        <option th:each="c : ${category}" th:value="${c.getId()}" th:text="${c.getName()}"></option>
+    </select>
+
+    <button>Ajouter</button>
+</form>
+
+</body>
+</html>

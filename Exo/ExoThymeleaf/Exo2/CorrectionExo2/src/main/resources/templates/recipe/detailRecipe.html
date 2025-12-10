@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+
+<body>
+<span th:replace="~{home :: navBar}"></span>
+
+    <p>id :<span th:text="${recipe.getId()}"></span> </p>
+    <p>Nom :<span th:text="${recipe.getName()}"></span> </p>
+    <p>ingredient :<span th:text="${recipe.getIngredients()}"></span> </p>
+    <p>instruction :<span th:text="${recipe.getInstructions()}"></span> </p>
+    <p>categorie :<span th:text="${recipe.getCategory().getName()}"></span> </p>
+
+</body>
+</html>

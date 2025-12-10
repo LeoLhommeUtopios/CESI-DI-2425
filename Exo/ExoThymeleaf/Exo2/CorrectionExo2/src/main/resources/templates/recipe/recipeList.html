@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+
+<body>
+<span th:replace="~{home :: navBar}"></span>
+
+<table>
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>categorie</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr th:each="r : ${recipes}">
+            <td th:text="${r.getName()}"></td>
+            <td th:text="${r.getCategory()}"></td>
+            <td>
+                <a th:href="@{/recipe/detail/{id}(id = ${r.getId()})}">Details</a>
+                <a th:href="@{/recipe/delete/{id}(id = ${r.getId()})}">Delete</a>
+                <a th:href="@{/recipe/update/{id}(id = ${r.getId()})}">update</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<a th:href="@{/recipe/add}">ajouter une recette</a>
+</body>
+</html>
