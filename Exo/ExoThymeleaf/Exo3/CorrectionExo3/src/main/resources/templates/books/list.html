@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des livres</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .user-info {
+            color: #666;
+        }
+        .user-info span {
+            font-weight: bold;
+            color: #667eea;
+        }
+        h1 {
+            margin: 0;
+            color: #333;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        tr:hover {
+            background: #e9ecef;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        .btn-small {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div>
+        <h1>Gestion des livres</h1>
+        <div class="user-info">
+            Connecté en tant que : <span sec:authentication="name">Utilisateur</span>
+            (<span sec:authentication="authorities">Rôle</span>)
+        </div>
+    </div>
+    <div class="actions">
+        <a th:href="@{/books/add}" class="btn btn-primary"
+           sec:authorize="hasRole('ADMIN')">
+             Ajouter un livre
+        </a>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-secondary">
+                Déconnexion
+            </button>
+        </form>
+    </div>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Autor</th>
+        <th>Genre</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="b : ${books}">
+        <td th:text="${b.title}">title</td>
+        <td th:text="${b.autor}">autor</td>
+        <td th:text="${b.genre}">genre</td>
+        <td>
+            <div class="action-buttons">
+                <a th:href="@{/books/detail/{id}(id=${b.id})}"
+                   class="btn btn-primary btn-small">
+                     Voir
+                </a>
+                <a th:href="@{/books/edit/{id}(id=${b.id})}"
+                   class="btn btn-primary btn-small"
+                   sec:authorize="hasRole('ADMIN')">
+                     Modifier
+                </a>
+                <form th:action="@{/books/delete/{id}(id=${b.id})}"
+                      method="get"
+                      style="margin: 0;"
+                      sec:authorize="hasRole('ADMIN')"
+                      onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce livre ?');">
+                    <button type="submit" class="btn btn-danger btn-small">
+                         Supprimer
+                    </button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

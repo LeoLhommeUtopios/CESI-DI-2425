@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Accès refusé</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .error-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 500px;
+        }
+        .error-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .user-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #495057;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+<div class="error-container">
+    <div class="error-icon">🚫</div>
+    <h1>Accès Refusé</h1>
+    <p>
+        Désolé, vous n'avez pas les permissions nécessaires pour accéder à cette page.
+    </p>
+    <div class="user-info">
+        <strong>Utilisateur connecté :</strong> <span sec:authentication="name">Utilisateur</span><br>
+        <strong>Rôle :</strong> <span sec:authentication="authorities">Rôle</span>
+    </div>
+    <p>
+        Cette action nécessite des privilèges d'<strong>administrateur</strong>.
+    </p>
+    <div>
+        <a th:href="@{/contacts}" class="btn btn-primary">
+            🏠 Retour aux contacts
+        </a>
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <button type="submit" class="btn btn-secondary">
+                🚪 Se déconnecter
+            </button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

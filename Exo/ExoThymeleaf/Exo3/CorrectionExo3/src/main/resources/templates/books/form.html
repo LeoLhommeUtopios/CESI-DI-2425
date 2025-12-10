@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${book.id != null ? 'Modifier un livre' : 'Ajouter un livre'}">Formulaire de livre</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .error {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h1 th:text="${book.id != null ? 'Modifier un livre' : 'Ajouter un livre'}">Formulaire</h1>
+
+    <form th:action="@{${book.id != null ? '/books/edit' : '/books/add'}}"
+          th:object="${book}"
+          method="post">
+
+        <div class="form-group">
+            <label for="title">Title *</label>
+            <input type="text" id="title" th:field="*{title}" required>
+            <div class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="autor">Autor *</label>
+            <input type="text" id="autor" th:field="*{autor}" required>
+            <div class="error" th:if="${#fields.hasErrors('autor')}" th:errors="*{autor}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="isbn">Isbn *</label>
+            <input type="text" id="isbn" th:field="*{isbn}" required>
+            <div class="error" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="genre">Genre *</label>
+            <select name="genre" id="genre" th:field="*{genre}">
+                <option th:each="g : ${genre}" th:text="${g}" th:value="${g}" />
+            </select>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary"> Enregistrer</button>
+            <a th:href="@{/books}" class="btn btn-secondary">Annuler</a>
+        </div>
+
+        <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{dateAdd}">
+        <input type="hidden" th:field="*{available}">
+
+    </form>
+</div>
+</body>
+</html>
