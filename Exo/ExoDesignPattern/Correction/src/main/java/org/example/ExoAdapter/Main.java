@@ -1,4 +1,4 @@
-package org.example.Exo1;
+package org.example.ExoAdapter;
 
 public class Main {
 
