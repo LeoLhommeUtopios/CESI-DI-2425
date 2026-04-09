@@ -6,6 +6,6 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin
-COPY --from=builder /app/target/_08_demo_Spring_REST-0.0.1-SNAPSHOT.jar .
-EXPOSE 8080
-ENTRYPOINT [ "java","-jar","_08_demo_Spring_REST-0.0.1-SNAPSHOT.jar" ]
+WORKDIR /app
+COPY --from=builder /app/target/Gateway-0.0.1-SNAPSHOT.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
