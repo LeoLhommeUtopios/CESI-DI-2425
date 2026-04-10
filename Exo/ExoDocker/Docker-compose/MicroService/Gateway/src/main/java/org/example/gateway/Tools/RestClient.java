@@ -1,5 +1,7 @@
 package org.example.gateway.Tools;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -21,6 +23,7 @@ public class RestClient<T> {
     }
 
     public T postRequest(String json, Class<T> type) {
+        System.out.println(urlApi);
         HttpEntity<String> requestEntity = new HttpEntity<>(json,httpHeaders);
         ResponseEntity<T> response = template.exchange(urlApi, HttpMethod.POST, requestEntity, type);
         if(response.hasBody()) {

@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/subject")
+@RequestMapping("/api/grade")
 public class GradeController {
 
     @Autowired
@@ -20,7 +20,7 @@ public class GradeController {
     }
 
     @PostMapping
-    public ResponseEntity<GradeDtoResponse> addSubject (@RequestBody GradeDtoReceive gradeDtoReceive){
+    public ResponseEntity<GradeDtoResponse> addGrade (@RequestBody GradeDtoReceive gradeDtoReceive){
         return ResponseEntity.ok(service.save(gradeDtoReceive));
     }
 }

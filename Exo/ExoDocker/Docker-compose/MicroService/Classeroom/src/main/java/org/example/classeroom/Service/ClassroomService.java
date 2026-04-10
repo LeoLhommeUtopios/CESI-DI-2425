@@ -7,8 +7,8 @@ import org.example.classeroom.Dto.Teacher;
 import org.example.classeroom.Entity.Classroom;
 import org.example.classeroom.Repository.ClassroomRepository;
 import org.example.classeroom.Tools.RestClient;
-import org.example.classeroom.Utils.Ports;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +19,12 @@ public class ClassroomService {
 
     @Autowired
     ClassroomRepository classroomRepository;
+
+    @Value("${TEACHER_PORT}")
+    public String portTeacher;
+
+    @Value("${STUDENT_PORT}")
+    public String portStudent;
 
     public ClassroomDtoResponse save (ClassroomDtoReceive classroomDtoReceive){
         Classroom classroom = dtoToClassroom(classroomDtoReceive);
@@ -41,12 +47,12 @@ public class ClassroomService {
         List<Student> students = new ArrayList<>();
         Teacher teacher = null;
 
-        RestClient<Student> studentRestClient = new RestClient<>("http://localhost:"+ Ports.portStudent +"/api/student/");
+        RestClient<Student> studentRestClient = new RestClient<>("http://student:"+ portStudent +"/api/student/");
         for(Long id : classroom.getIdStudents()){
             students.add(studentRestClient.getRequest(Student.class,id.toString()));
         }
 
-        RestClient<Teacher> teacherRestClient = new RestClient<>("http://localhost:"+ Ports.portTeacher +"/api/teacher/");
+        RestClient<Teacher> teacherRestClient = new RestClient<>("http://teacher:"+ portTeacher +"/api/teacher/");
         teacher = teacherRestClient.getRequest(Teacher.class,classroom.getIdTeacher().toString());
 
         return new ClassroomDtoResponse(classroom.getIdClassroom(),students,teacher);

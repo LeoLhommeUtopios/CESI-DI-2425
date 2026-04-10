@@ -11,5 +11,5 @@ public class TeacherDtoReceive {
     private String firstname;
     private String lastname;
     private String birthDateStr;
-    private String subject;
+    private long subjectId;
 }

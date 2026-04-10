@@ -14,5 +14,5 @@ public class Teacher {
     private String firstname;
     private String lastname;
     private LocalDate birthDate;
-    private String subject;
+    private SubjectDtoResponse subject;
 }

@@ -1,0 +1,162 @@
+networks:
+  project:
+
+volumes:
+  mysql_data:
+  mongo_data:
+
+services:
+  # Database
+  sql:
+    container_name: sql
+    image: mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_DATABASE: classeroom_app
+    networks:
+      - project
+    volumes:
+      - $HOME/docker/volumes/mysql:/var/lib/mysql mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27018:27017
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - project
+
+  #Back
+  classeroom:
+    container_name: classeroom
+    ports:
+      - ${CLASSEROOM_PORT}:${CLASSEROOM_PORT}
+    environment:
+      MONGO_URL: ${MONGO_URL}
+      MONGO_DB: ${MONGO_DB}
+      CLASSEROOM_PORT: ${CLASSEROOM_PORT}
+      STUDENT_PORT: ${STUDENT_PORT}
+      TEACHER_PORT: ${TEACHER_PORT}
+    networks:
+      - project
+    build:
+      context: ./classeroom
+      dockerfile: Dockerfile
+    depends_on:
+      - mongo
+      - student
+      - teacher
+    restart: always
+
+  grade:
+    container_name: grade
+    ports:
+      - ${GRADE_PORT}:${GRADE_PORT}
+    environment:
+      URL_DATABASE: ${URL_DATABASE}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      GRADE_PORT: ${GRADE_PORT}
+      STUDENT_PORT: ${STUDENT_PORT}
+      SUBJECT_PORT: ${SUBJECT_PORT}
+    networks:
+      - project
+    build:
+      context: ./Grade
+      dockerfile: Dockerfile
+    depends_on:
+      sql:
+        condition: service_healthy
+    restart: always
+
+  matiere:
+    container_name: matiere
+    ports:
+      - ${SUBJECT_PORT}:${SUBJECT_PORT}
+    environment:
+      URL_DATABASE: ${URL_DATABASE}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      SUBJECT_PORT: ${SUBJECT_PORT}
+    networks:
+      - project
+    build:
+      context: ./Matiere
+      dockerfile: Dockerfile
+    depends_on:
+      sql:
+        condition: service_healthy
+    restart: always
+
+  student:
+    container_name: student
+    ports:
+      - ${STUDENT_PORT}:${STUDENT_PORT}
+    environment:
+      URL_DATABASE: ${URL_DATABASE}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      STUDENT_PORT: ${STUDENT_PORT}
+    networks:
+      - project
+    build:
+      context: ./Student
+      dockerfile: Dockerfile
+    depends_on:
+      sql:
+        condition: service_healthy
+    restart: always
+
+  teacher:
+    container_name: teacher
+    ports:
+      - ${TEACHER_PORT}:${TEACHER_PORT}
+    environment:
+      URL_DATABASE: ${URL_DATABASE}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      TEACHER_PORT: ${TEACHER_PORT}
+      SUBJECT_PORT: ${SUBJECT_PORT}
+    networks:
+      - project
+    build:
+      context: ./Teacher
+      dockerfile: Dockerfile
+    depends_on:
+      sql:
+        condition: service_healthy
+    restart: always
+
+  gateway:
+    container_name: gateway
+    ports:
+      - ${GATEWAY_PORT}:${GATEWAY_PORT}
+    networks:
+      - project
+    environment:
+      STUDENT_PORT: ${STUDENT_PORT}
+      TEACHER_PORT: ${TEACHER_PORT}
+      CLASSEROOM_PORT: ${CLASSEROOM_PORT}
+      GRADE_PORT: ${GRADE_PORT}
+      SUBJECT_PORT: ${SUBJECT_PORT}
+      GATEWAY_PORT: ${GATEWAY_PORT}
+
+    build:
+      context: ./Gateway
+      dockerfile: Dockerfile
+    depends_on:
+      - teacher
+      - classeroom
+      - student
+      - matiere
+      - grade
+    restart: always

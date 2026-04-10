@@ -21,7 +21,7 @@ public class RestClient<T> {
     }
     public T getRequest( Class<T> type, String endpoint) {
         HttpEntity<String> requestEntity = new HttpEntity<>("",httpHeaders);
-        ResponseEntity<T> response = template.exchange(urlApi, HttpMethod.GET, requestEntity, type);
+        ResponseEntity<T> response = template.exchange(urlApi+endpoint, HttpMethod.GET, requestEntity, type);
         if(response.hasBody()) {
             return response.getBody();
         }
