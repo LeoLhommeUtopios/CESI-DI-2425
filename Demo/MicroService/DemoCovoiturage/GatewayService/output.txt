@@ -1,0 +1,2 @@
+/api/booking/user/1
+Une autre ligne à écrire dans le fichier.
