@@ -123,6 +123,17 @@ Cas concret :
 
 ---
 
+## Service Gateway
+
+### Structure des controller
+* UserController (permet l'aces au endpoint du microService User)
+* BoardController (permet l'aces au endpoint du microService Board)
+* TacheController (permet l'aces au endpoint du microService Tache)
+* NotificationController (permet l'aces au endpoint du microService Notification)
+
+---
+
+
 ## Service Notifications (Bonus)
 
 ### Déclencheurs :
