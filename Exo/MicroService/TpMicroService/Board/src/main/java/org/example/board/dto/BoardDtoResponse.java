@@ -1,0 +1,20 @@
+package org.example.board.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class BoardDtoResponse {
+    private int id;
+    private String name;
+    private User UserOwner;
+    private int maxMember;
+    private List<User> member;
+}
